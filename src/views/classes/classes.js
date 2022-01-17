@@ -1,24 +1,10 @@
-import React, { useState } from 'react'
-import {
-  BrowserRouter as Router,
-  generatePath,
-  Switch,
-  Route,
-  useHistory,
-  useParams,
-  Link,
-} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { generatePath, useHistory, Link } from 'react-router-dom'
 
 import {
-  CAvatar,
   CButton,
-  CButtonGroup,
-  CCard,
-  CCardBody,
-  CCardFooter,
-  CCardHeader,
   CCol,
-  CProgress,
+  CFormInput,
   CRow,
   CTable,
   CTableBody,
@@ -27,49 +13,64 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+import { GetAdminList } from '../../api/admin'
+import { GetAllClasses, GetClass } from '../../api/class'
 
 const Classes = () => {
   const [id, setId] = useState(1)
-  const history = useHistory()
-  const handleProceed = (e) => {
-    id && history.push(generatePath('/admins/:id', { id }))
+  const [sort, setSort] = useState('DESC')
+  const [search, setSearch] = useState('')
+  const [classes, setClasses] = useState([])
+
+  useEffect(() => {
+    ;(async () => {
+      await HandleSubmitSearch()
+    })()
+  }, [sort])
+
+  const HandleSubmitSearch = async () => {
+    const result = await GetAllClasses(sort, search)
+    if (result) {
+      setClasses(result)
+    }
   }
-  const today = new Date()
-  const time = today.getDay() + '/' + today.getMonth() + '/' + today.getFullYear()
-  const fakeData = [
-    {
-      id: 1,
-      name: 'PTUDWNC',
-      code: 'PDwRVQWw',
-      idDeleted: 0,
-      isArchived: 0,
-      visibility: 'public',
-      dateCreated: time,
-      dateModified: time,
-    },
-    {
-      id: 2,
-      name: 'PTUDWNC',
-      code: 'PDwRVQWw',
-      idDeleted: 0,
-      isArchived: 0,
-      visibility: 'public',
-      dateCreated: time,
-      dateModified: time,
-    },
-    {
-      id: 3,
-      name: 'PTUDWNC',
-      code: 'PDwRVQWw',
-      idDeleted: 0,
-      isArchived: 0,
-      visibility: 'public',
-      dateCreated: time,
-      dateModified: time,
-    },
-  ]
+
+  const HandleChangeSearch = ({ target }) => {
+    setSearch(target.value)
+  }
+
+  const HandleKeyDown = async (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      await HandleSubmitSearch()
+    }
+  }
+
   return (
     <>
+      <div className="mb-3">
+        <CRow xs={{ gutter: 2 }}>
+          <CCol xs={{ span: 8 }}>
+            <CFormInput
+              type="text"
+              id="search-input"
+              placeholder="Nhập tên lớp"
+              value={search}
+              onChange={HandleChangeSearch}
+              onKeyDown={HandleKeyDown}
+            />
+          </CCol>
+          <CCol xs={{ span: 4 }} p>
+            <CButton
+              color="primary"
+              style={{ display: 'flex', alignItems: 'center' }}
+              onClick={HandleSubmitSearch}
+            >
+              Tìm kiếm
+            </CButton>
+          </CCol>
+        </CRow>
+      </div>
       <CTable striped>
         <CTableHead>
           <CTableRow>
@@ -80,15 +81,17 @@ const Classes = () => {
           </CTableRow>
         </CTableHead>
         <CTableBody>
-          {fakeData.map((row) => {
+          {classes.map((row) => {
             return (
-              <CTableRow key={row.name}>
+              <CTableRow key={row.id}>
                 <CTableHeaderCell scope="row">{row.id} </CTableHeaderCell>
                 <CTableDataCell>
                   <Link to={`classes/${row.id}`}>{row.name}</Link>
                 </CTableDataCell>
                 <CTableDataCell>{row.code}</CTableDataCell>
-                <CTableDataCell>{row.dateCreated}</CTableDataCell>
+                <CTableDataCell>
+                  {new Date(row.createdAt).toLocaleDateString('vi-VN')}
+                </CTableDataCell>
               </CTableRow>
             )
           })}

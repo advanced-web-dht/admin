@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -27,17 +27,31 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+import { GetClass } from '../../api/class'
 
-const Class = (prpos) => {
+const Class = () => {
   const { id } = useParams()
-  // var matches = str.match(/\d+$/);
+  const [cls, setCls] = useState({})
 
-  console.log(id)
+  useEffect(() => {
+    ;(async () => {
+      if (id) {
+        const result = await GetClass(id)
+        if (result) {
+          setCls(result)
+        }
+      }
+    })()
+  }, [id])
+
   return (
     <div>
-      <p>Tên lớp học: PTUDWNC</p>
-      <p>Mã lớp học: PDwRVQWw</p>
-      <p>Id: {id}</p>
+      <p>Tên lớp học: {cls.name}</p>
+      <p>Mã lớp học: {cls.code}</p>
+      <p>Id: {cls.id}</p>
+      <p>Người tạo: {cls?.owner?.name}</p>
+      <p>Sô học viên: {cls?.students?.length}</p>
+      <p>Sô giảng viên: {cls?.teachers?.length + 1}</p>
     </div>
   )
 }

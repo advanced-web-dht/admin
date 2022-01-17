@@ -55,6 +55,13 @@ const AdminAccounts = () => {
     handleOpenModal()
   }
 
+  const HandleKeyDown = async (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      await HandleSubmitSearch()
+    }
+  }
+
   return (
     <>
       <div className="mb-3">
@@ -66,6 +73,7 @@ const AdminAccounts = () => {
               placeholder="Nhập tên hoặc email"
               value={search}
               onChange={HandleChangeSearch}
+              onKeyDown={HandleKeyDown}
             />
           </CCol>
           <CCol xs={{ span: 4 }} p>
