@@ -38,7 +38,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Thêm Admin',
-    to: '/theme/typography',
+    to: '/admins/add',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {

@@ -1,24 +1,9 @@
-import React, { useState } from 'react'
-import {
-  BrowserRouter as Router,
-  generatePath,
-  Switch,
-  Route,
-  useHistory,
-  useParams,
-  Link,
-} from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 
 import {
-  CAvatar,
   CButton,
-  CButtonGroup,
-  CCard,
-  CCardBody,
-  CCardFooter,
-  CCardHeader,
   CCol,
-  CProgress,
+  CFormInput,
   CRow,
   CTable,
   CTableBody,
@@ -28,61 +13,109 @@ import {
   CTableRow,
 } from '@coreui/react'
 
+import CIcon from '@coreui/icons-react'
+import { cilArrowBottom } from '@coreui/icons/js/free/cil-arrow-bottom'
+import { cilArrowTop } from '@coreui/icons/js/free/cil-arrow-top'
+
+import { GetAccounts } from '../../api/account'
+import User from './user'
+import { useToggle } from '../../hooks/useToggle'
+
 const Users = () => {
-  const [id, setId] = useState(1)
-  const history = useHistory()
-  const handleProceed = (e) => {
-    id && history.push(generatePath('/admins/:id', { id }))
+  const [selectedId, setSelectedId] = useState(null)
+  const [sort, setSort] = useState('DESC')
+  const [search, setSearch] = useState('')
+  const [admins, setAdmins] = useState([])
+
+  const [openModal, handleOpenModal, handleCloseModal] = useToggle()
+
+  useEffect(() => {
+    ;(async () => {
+      await HandleSubmitSearch()
+    })()
+  }, [sort])
+
+  const HandleSubmitSearch = async () => {
+    const result = await GetAccounts(sort, search)
+    if (result) {
+      setAdmins(result)
+    }
   }
-  const today = new Date()
-  const time = today.getDay() + '/' + today.getMonth() + '/' + today.getFullYear()
-  const fakeData = [
-    {
-      id: 1,
-      name: 'Phạm Tấn',
-      account: 'seacaboqn',
-      dateCreated: time,
-    },
-    {
-      id: 2,
-      name: 'Nguyễn Thanh Duy',
-      account: 'ntduyfit',
-      dateCreated: time,
-    },
-    {
-      id: 3,
-      name: 'Lê Hồng Huy',
-      account: 'lhonghuyfit',
-      dateCreated: time,
-    },
-  ]
+
+  const HandleChangeSearch = ({ target }) => {
+    setSearch(target.value)
+  }
+
+  const HandleCloseModal = () => {
+    handleCloseModal()
+  }
+
+  const HandleChangeAdmin = (id) => {
+    setSelectedId(id)
+    handleOpenModal()
+  }
+
   return (
     <>
+      <div className="mb-3">
+        <CRow xs={{ gutter: 2 }}>
+          <CCol xs={{ span: 8 }}>
+            <CFormInput
+              type="text"
+              id="search-input"
+              placeholder="Nhập tên hoặc email"
+              value={search}
+              onChange={HandleChangeSearch}
+            />
+          </CCol>
+          <CCol xs={{ span: 4 }} p>
+            <CButton
+              color="primary"
+              style={{ display: 'flex', alignItems: 'center' }}
+              onClick={HandleSubmitSearch}
+            >
+              Tìm kiếm
+            </CButton>
+          </CCol>
+        </CRow>
+      </div>
       <CTable striped>
         <CTableHead>
           <CTableRow>
             <CTableHeaderCell scope="col">#</CTableHeaderCell>
-            <CTableHeaderCell scope="col">Họ và tên</CTableHeaderCell>
-            <CTableHeaderCell scope="col">Tài khoản</CTableHeaderCell>
-            <CTableHeaderCell scope="col">Ngày tạo</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Tên</CTableHeaderCell>
+            <CTableHeaderCell scope="col">
+              <CButton
+                color="dark"
+                variant="ghost"
+                style={{ display: 'flex', alignItems: 'center' }}
+                onClick={() => setSort((prev) => (prev === 'DESC' ? 'ASC' : 'DESC'))}
+              >
+                Ngày tạo
+                <CIcon icon={sort === 'DESC' ? cilArrowBottom : cilArrowTop} size="lg" />
+              </CButton>
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col">Thao tác</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
-          {fakeData.map((row) => {
+          {admins.map((row) => {
             return (
-              <CTableRow key={row.name}>
+              <CTableRow key={row.id}>
                 <CTableHeaderCell scope="row">{row.id} </CTableHeaderCell>
+                <CTableDataCell>{row.name}</CTableDataCell>
+                <CTableDataCell>{new Date(row.createdAt).toLocaleString('vi-VN')}</CTableDataCell>
                 <CTableDataCell>
-                  {/*<a href={`#/admins/:{row.id}` + row.id}>{row.name}</a>*/}
-                  <Link to={`users/${row.id}`}>{row.name}</Link>
+                  <CButton color="success" onClick={() => HandleChangeAdmin(row.id)}>
+                    Xem
+                  </CButton>
                 </CTableDataCell>
-                <CTableDataCell>{row.account}</CTableDataCell>
-                <CTableDataCell>{row.dateCreated}</CTableDataCell>
               </CTableRow>
             )
           })}
         </CTableBody>
       </CTable>
+      <User id={selectedId} onClose={HandleCloseModal} isOpen={openModal} />
     </>
   )
 }

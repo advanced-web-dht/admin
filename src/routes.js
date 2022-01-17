@@ -1,4 +1,5 @@
 import React from 'react'
+import AddAdmin from './views/adminAccounts/AddAdmin'
 // import Classes from './views/classes/classes'
 // import Class from './views/classes/class'
 // import Users from './views/users/users'
@@ -63,8 +64,8 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/admins', name: 'AdminAccounts', component: AdminAccounts, exact: true },
-  { path: '/admins/:id', name: 'AdminAccount', component: AdminAccount },
+  { path: '/admins', name: 'Admin Accounts', component: AdminAccounts, exact: true },
+  { path: '/admins/add', name: 'Add admin', component: AddAdmin },
   { path: '/classes', name: 'Classes', component: Classes, exact: true },
   { path: '/classes/:id', name: 'Class', component: Class },
   { path: '/users', name: 'Classes', component: Users, exact: true },

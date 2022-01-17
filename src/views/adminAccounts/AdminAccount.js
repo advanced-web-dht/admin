@@ -1,47 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {
-  BrowserRouter as Router,
-  generatePath,
-  Switch,
-  Route,
-  useHistory,
-  useParams,
-} from 'react-router-dom'
+import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
+import { GetAdmin } from '../../api/admin'
+import PropTypes from 'prop-types'
 
-import {
-  CAvatar,
-  CButton,
-  CButtonGroup,
-  CCard,
-  CCardBody,
-  CCardFooter,
-  CCardHeader,
-  CCol,
-  CProgress,
-  CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
-} from '@coreui/react'
+const AdminAccount = ({ id, onClose, isOpen }) => {
+  const [admin, setAdmin] = useState({})
 
-const AdminAccount = (prpos) => {
-  const { id } = useParams()
-  // var matches = str.match(/\d+$/);
+  useEffect(() => {
+    ;(async () => {
+      const result = await GetAdmin(id)
+      if (result) {
+        setAdmin(result)
+      }
+    })()
+  }, [id])
 
-  console.log(id)
   return (
-    <div>
-      <p>Họ và tên: Phạm Tấn</p>
-      <p>Giới tính: Nam</p>
-      <p>Ngày sinh: 26/04/2000</p>
-      <p>Tài khoản: seacaboqn</p>
-      <p>Id: {id}</p>
-    </div>
+    <CModal visible={isOpen} onClose={onClose} alignment="center">
+      <CModalHeader>
+        <CModalTitle>Chi tiết tài khoản</CModalTitle>
+      </CModalHeader>
+      <CModalBody>
+        <div>
+          <p>Id: {id}</p>
+          <p>Tên: {admin.name}</p>
+          <p>Tài khoản: {admin.username}</p>
+          <p>Email: {admin.email}</p>
+          <p>Ngày tạo: {admin.createdAt}</p>
+          <p>Người tạo: {admin.creator ? admin.creator.name : 'không'}</p>
+        </div>
+      </CModalBody>
+      <CModalFooter>
+        <CButton color="secondary" onClick={onClose}>
+          Close
+        </CButton>
+      </CModalFooter>
+    </CModal>
   )
+}
+
+AdminAccount.propTypes = {
+  id: PropTypes.number,
+  onClose: PropTypes.func,
+  isOpen: PropTypes.bool,
 }
 
 export default AdminAccount
