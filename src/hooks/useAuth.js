@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export const useAuth = () => {
   const [user] = useState(JSON.parse(localStorage.getItem('user')))

@@ -89,10 +89,18 @@ const User = ({ id, onClose, isOpen }) => {
       </CModalHeader>
       <CModalBody>
         <div>
-          <p>Id: {id}</p>
-          <p>Tên: {account.name}</p>
-          <p>Tài khoản: {account.username}</p>
-          <p>Email: {account.email}</p>
+          <p>
+            <b>Id:</b> {id}
+          </p>
+          <p>
+            <b>Tên:</b> {account.name}
+          </p>
+          <p>
+            <b>Tài khoản:</b> {account.username}
+          </p>
+          <p>
+            <b>Email:</b> {account.email}
+          </p>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {isEditId ? (
               <React.Fragment>
@@ -108,7 +116,9 @@ const User = ({ id, onClose, isOpen }) => {
                 />
               </React.Fragment>
             ) : (
-              <p>Mã sinh viên: {account.studentId}</p>
+              <p>
+                <b>Mã sinh viên:</b> {account.studentId}
+              </p>
             )}
             <CTooltip content={isEditId ? 'Lưu' : 'Chỉnh sửa'}>
               <CButton
@@ -135,9 +145,13 @@ const User = ({ id, onClose, isOpen }) => {
               </CTooltip>
             )}
           </div>
-          <p>Ngày tạo: {new Date(account.createdAt).toLocaleDateString('vi-VN')}</p>
+          <p>
+            <b>Ngày tạo:</b> {new Date(account.createdAt).toLocaleDateString('vi-VN')}
+          </p>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <p>Trạng thái: {account.status}</p>
+            <p>
+              <b>Trạng thái:</b> {account.status}
+            </p>
             <CTooltip content={account.status === 'blocked' ? 'Mở khoá' : 'Khoá'}>
               <CButton
                 variant="ghost"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { generatePath, useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import {
   CButton,
@@ -13,11 +13,9 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import { GetAdminList } from '../../api/admin'
-import { GetAllClasses, GetClass } from '../../api/class'
+import { GetAllClasses } from '../../api/class'
 
 const Classes = () => {
-  const [id, setId] = useState(1)
   const [sort, setSort] = useState('DESC')
   const [search, setSearch] = useState('')
   const [classes, setClasses] = useState([])

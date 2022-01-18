@@ -23,12 +23,24 @@ const AdminAccount = ({ id, onClose, isOpen }) => {
       </CModalHeader>
       <CModalBody>
         <div>
-          <p>Id: {id}</p>
-          <p>Tên: {admin.name}</p>
-          <p>Tài khoản: {admin.username}</p>
-          <p>Email: {admin.email}</p>
-          <p>Ngày tạo: {admin.createdAt}</p>
-          <p>Người tạo: {admin.creator ? admin.creator.name : 'không'}</p>
+          <p>
+            <b>Id:</b> {id}
+          </p>
+          <p>
+            <b>Tên:</b> {admin.name}
+          </p>
+          <p>
+            <b>Tài khoản:</b> {admin.username}
+          </p>
+          <p>
+            <b>Email:</b> {admin.email}
+          </p>
+          <p>
+            <b>Ngày tạo:</b> {admin.createdAt}
+          </p>
+          <p>
+            <b>Người tạo:</b> {admin.creator ? admin.creator.name : 'không'}
+          </p>
         </div>
       </CModalBody>
       <CModalFooter>

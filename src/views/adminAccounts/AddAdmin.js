@@ -33,6 +33,7 @@ const AddAdmin = () => {
           required
           value={email}
           onChange={({ target }) => setEmail(target.value)}
+          style={{ width: '500px' }}
         />
       </div>
       <div className="mb-3">
@@ -43,6 +44,7 @@ const AddAdmin = () => {
           placeholder="Tên đăng nhập"
           requiredvalue={username}
           onChange={({ target }) => setUsername(target.value)}
+          style={{ width: '500px' }}
         />
       </div>
       <div className="mb-3">
@@ -54,6 +56,7 @@ const AddAdmin = () => {
           required
           value={name}
           onChange={({ target }) => setName(target.value)}
+          style={{ width: '500px' }}
         />
       </div>
       <div className="mb-3">
@@ -65,10 +68,11 @@ const AddAdmin = () => {
           required
           value={password}
           onChange={({ target }) => setPassword(target.value)}
+          style={{ width: '500px' }}
         />
       </div>
-      <div className="mb-3" style={{ display: 'flex', justifyContent: 'center' }}>
-        <CButton type="submit" size="lg">
+      <div className="mb-3" style={{ display: 'flex' }}>
+        <CButton type="submit" size="lg" style={{ marginTop: '10px' }}>
           Thêm
         </CButton>
       </div>
