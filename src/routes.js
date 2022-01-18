@@ -5,7 +5,6 @@ const AdminAccounts = React.lazy(() => import('./views/adminAccounts/AdminAccoun
 const Classes = React.lazy(() => import('./views/classes/classes'))
 const Class = React.lazy(() => import('./views/classes/class'))
 const Users = React.lazy(() => import('./views/users/users'))
-const User = React.lazy(() => import('./views/users/user'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -14,7 +13,6 @@ const routes = [
   { path: '/classes', name: 'Classes', component: Classes, exact: true },
   { path: '/classes/:id', name: 'Class', component: Class },
   { path: '/users', name: 'Classes', component: Users, exact: true },
-  { path: '/users/:id', name: 'Class', component: User },
 ]
 
 export default routes
