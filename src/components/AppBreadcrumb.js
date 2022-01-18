@@ -7,21 +7,24 @@ import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
 
 const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname
+  console.log(currentLocation)
 
   const getRouteName = (pathname, routes) => {
     const currentRoute = routes.find((route) => route.path === pathname)
-    return currentRoute.name
+    if (currentRoute !== undefined) return currentRoute.name
+    else return 'Detail'
   }
 
   const getBreadcrumbs = (location) => {
     const breadcrumbs = []
     location.split('/').reduce((prev, curr, index, array) => {
       const currentPathname = `${prev}/${curr}`
-      breadcrumbs.push({
-        pathname: currentPathname,
-        name: getRouteName(currentPathname, routes),
-        active: index + 1 === array.length ? true : false,
-      })
+      getRouteName(currentPathname, routes) !== '' &&
+        breadcrumbs.push({
+          pathname: '#' + currentPathname,
+          name: getRouteName(currentPathname, routes),
+          active: index + 1 === array.length,
+        })
       return currentPathname
     })
     return breadcrumbs
