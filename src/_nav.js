@@ -1,6 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cilDrop, cilPencil } from '@coreui/icons'
+import { cibAddthis, cilList } from '@coreui/icons'
 import { CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
@@ -12,13 +12,13 @@ const _nav = [
     component: CNavItem,
     name: 'Danh sách Admin',
     to: '/admins',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilList} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Thêm Admin',
     to: '/admins/add',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    icon: <CIcon icon={cibAddthis} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,
@@ -28,7 +28,7 @@ const _nav = [
     component: CNavItem,
     name: 'Danh sách tài khoản',
     to: '/users',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilList} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,
@@ -38,7 +38,7 @@ const _nav = [
     component: CNavItem,
     name: 'Danh sách lớp học',
     to: '/classes',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilList} customClassName="nav-icon" />,
   },
 ]
 

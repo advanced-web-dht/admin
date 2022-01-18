@@ -7,3 +7,8 @@ export const SubmitLogin = async (username, password) => {
     return false
   }
 }
+
+export const SubmitLogout = () => {
+  localStorage.removeItem('user')
+  window.location.reload()
+}
