@@ -8,11 +8,11 @@ const Users = React.lazy(() => import('./views/users/users'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/admins', name: 'Admin Accounts', component: AdminAccounts, exact: true },
-  { path: '/admins/add', name: 'Add admin', component: AddAdmin },
-  { path: '/classes', name: 'Classes', component: Classes, exact: true },
-  { path: '/classes/:id', name: 'Class', component: Class },
-  { path: '/users', name: 'Classes', component: Users, exact: true },
+  { path: '/admins/list', name: 'Quản trị viên', component: AdminAccounts, exact: true },
+  { path: '/admins/add', name: 'Thêm quản trị viên', component: AddAdmin },
+  { path: '/classes', name: 'Lớp học', component: Classes, exact: true },
+  { path: '/classes/:id', name: 'Chi tiết lớp học', component: Class },
+  { path: '/users', name: 'Tài khoản', component: Users, exact: true },
 ]
 
 export default routes

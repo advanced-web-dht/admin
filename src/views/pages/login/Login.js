@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   CButton,
@@ -17,11 +17,19 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { SubmitLogin } from '../../../api/auth'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../../hooks/useAuth'
 
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const history = useHistory()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (user) {
+      history.replace('/admins/list')
+    }
+  }, [])
 
   const HandleChangeUsername = ({ target }) => {
     setUsername(target.value)
@@ -31,7 +39,8 @@ const Login = () => {
     setPassword(target.value)
   }
 
-  const HandleLogin = async () => {
+  const HandleLogin = async (event) => {
+    event.preventDefault()
     const result = await SubmitLogin(username, password)
     if (result) {
       toast.success('Đăng nhập thành công')
@@ -43,6 +52,12 @@ const Login = () => {
     }
   }
 
+  const HandleKeyPress = async (event) => {
+    if (event.key === 'Enter') {
+      await HandleLogin(event)
+    }
+  }
+
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -51,7 +66,7 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onKeyDown={HandleKeyPress} onSubmit={HandleLogin}>
                     <h1>Login</h1>
                     <p className="text-medium-emphasis">Sign In to your account</p>
                     <CInputGroup className="mb-3">
@@ -79,7 +94,7 @@ const Login = () => {
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4" onClick={HandleLogin}>
+                        <CButton color="primary" className="px-4" type={'submit'}>
                           Login
                         </CButton>
                       </CCol>

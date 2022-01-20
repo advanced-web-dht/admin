@@ -57,7 +57,6 @@ const AdminAccounts = () => {
 
   const HandleKeyDown = async (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault()
       await HandleSubmitSearch()
     }
   }
@@ -76,7 +75,7 @@ const AdminAccounts = () => {
               onKeyDown={HandleKeyDown}
             />
           </CCol>
-          <CCol xs={{ span: 4 }} p>
+          <CCol xs={{ span: 4 }}>
             <CButton
               color="primary"
               style={{ display: 'flex', alignItems: 'center' }}
