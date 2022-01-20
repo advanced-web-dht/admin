@@ -11,7 +11,7 @@ const AppBreadcrumb = () => {
   const getRouteName = (pathname, routes) => {
     const currentRoute = routes.find((route) => route.path === pathname)
     if (currentRoute !== undefined) return currentRoute.name
-    else return 'Detail'
+    else return ''
   }
 
   const getBreadcrumbs = (location) => {

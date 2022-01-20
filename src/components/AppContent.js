@@ -27,7 +27,7 @@ const AppContent = () => {
               )
             )
           })}
-          <Redirect from="/" to="/admins" />
+          <Redirect from="/" to="/admins/list" />
         </Switch>
       </Suspense>
     </CContainer>

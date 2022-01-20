@@ -11,7 +11,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Danh sách Admin',
-    to: '/admins',
+    to: '/admins/list',
     icon: <CIcon icon={cilList} customClassName="nav-icon" />,
   },
   {

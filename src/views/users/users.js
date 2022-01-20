@@ -76,7 +76,7 @@ const Users = () => {
               onKeyDown={HandleKeyDown}
             />
           </CCol>
-          <CCol xs={{ span: 4 }} p>
+          <CCol xs={{ span: 4 }}>
             <CButton
               color="primary"
               style={{ display: 'flex', alignItems: 'center' }}
