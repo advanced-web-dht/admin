@@ -67,8 +67,7 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm onKeyDown={HandleKeyPress} onSubmit={HandleLogin}>
-                    <h1>Login</h1>
-                    <p className="text-medium-emphasis">Sign In to your account</p>
+                    <h1>Đăng nhập</h1>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
@@ -95,7 +94,7 @@ const Login = () => {
                     <CRow>
                       <CCol xs={6}>
                         <CButton color="primary" className="px-4" type={'submit'}>
-                          Login
+                          Đăng nhập
                         </CButton>
                       </CCol>
                     </CRow>

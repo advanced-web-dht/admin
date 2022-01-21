@@ -30,9 +30,6 @@ const AdminAccount = ({ id, onClose, isOpen }) => {
             <b>Tên:</b> {admin.name}
           </p>
           <p>
-            <b>Tài khoản:</b> {admin.username}
-          </p>
-          <p>
             <b>Email:</b> {admin.email}
           </p>
           <p>
